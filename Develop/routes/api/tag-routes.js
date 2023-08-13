@@ -13,21 +13,21 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  try {
-    const tag = await Tag.findByPk(req.params.id, {
-      // JOIN with travellers, using the Trip through table
-      include: [{ model: Traveller, through: Trip, as: "location_travellers" }],
-    });
+  // try {
+  //   const tag = await Tag.findByPk(req.params.id, {
+      
+  //     include: [{ model: Traveller, through: Trip, as: "location_travellers" }],
+  //   });
 
-    if (!Tag) {
-      res.status(404).json({ message: "No tag found with this id!" });
-      return;
-    }
+  //   if (!Tag) {
+  //     res.status(404).json({ message: "No tag found with this id!" });
+  //     return;
+  //   }
 
-    res.status(200).json(locationData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
+  //   res.status(200).json(locationData);
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
 });
 
 router.post('/', async (req, res) => {
@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
+  //HAVING TROUBLE WITH PUT ROUTES
   Product.update(req.body, {
     where: {
       id: req.params.id,
