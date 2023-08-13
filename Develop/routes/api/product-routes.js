@@ -55,6 +55,7 @@ router.post("/", async (req, res) => {
     });
     const productTagIds = await ProductTag.bulkCreate(productTagIdArr);
     res.status(200).json(productTagIds);
+    return;
   }
   // if no product tags, just respond
   res.status(200).json(product);
@@ -62,6 +63,7 @@ router.post("/", async (req, res) => {
 
 
 // update product
+//
 router.put("/:id", async (req, res) => {
   // update product data
   const product = await Product.update(req.body, {
@@ -92,7 +94,8 @@ router.put("/:id", async (req, res) => {
       .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
       .map(({ id }) => id);
     // run both actions
-    return Promise.all([
+    console.log(">>>>before promise.all>>>")
+    await Promise.all([
       ProductTag.destroy({ where: { id: productTagsToRemove } }),
       ProductTag.bulkCreate(newProductTags),
     ]);
